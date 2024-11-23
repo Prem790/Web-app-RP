@@ -112,7 +112,7 @@ const FileConverter = () => {
       const endpoint =
         activeTab === "wordToPdf"
           ? "https://web-app-rp-testing.onrender.com/convert"
-          : "http://localhost:5001/upload";
+          : "https://web-app-rp-pdf-protector-python.onrender.com/upload";
 
       const response = await axios.post(endpoint, formData, {
         responseType: "blob",
