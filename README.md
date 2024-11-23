@@ -1,70 +1,63 @@
-PDF Protector & File Converter 🔒
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
+# PDF Protector & File Converter
+
 A powerful web application that combines PDF protection and file conversion capabilities. Built with a microservices architecture using Flask, Node.js, and React, this application provides a seamless experience for managing and converting documents.
-🚀 Features
 
-PDF Password Protection
+## Features
 
-Encrypt PDF files with custom passwords
-Secure document sharing
-Download protected PDFs instantly
+### PDF Password Protection
+- Encrypt PDF files with custom passwords
+- Secure document sharing
+- Download protected PDFs instantly
 
+### File Format Conversion
+- Convert between multiple file formats
+- Support for DOCX to PDF conversion
+- Maintain document formatting
 
-File Format Conversion
+### Modern UI/UX
+- Responsive design with TailwindCSS
+- Intuitive user interface
+- Real-time conversion progress
+- Drag-and-drop file upload
 
-Convert between multiple file formats
-Support for DOCX to PDF conversion
-Maintain document formatting
+## Tech Stack
 
+### Frontend
+- React.js 18.x
+- TailwindCSS 3.x
+- Axios for API calls
 
-Modern UI/UX
+### Backend
+- Flask (Python 3.x)
+- Node.js 16+
+- PyPDF2 for PDF operations
+- Multer for file handling
 
-Responsive design with TailwindCSS
-Intuitive user interface
-Real-time conversion progress
-Drag-and-drop file upload
+### DevOps
+- Docker & Docker Compose
+- Multi-container architecture
+- Nginx (optional for production)
 
+## Prerequisites
 
-
-🛠️ Tech Stack
-Frontend
-
-React.js 18.x
-TailwindCSS 3.x
-Axios for API calls
-
-Backend
-
-Flask (Python 3.x)
-Node.js 16+
-PyPDF2 for PDF operations
-Multer for file handling
-
-DevOps
-
-Docker & Docker Compose
-Multi-container architecture
-Nginx (optional for production)
-
-📋 Prerequisites
 Before running the application, ensure you have the following installed:
+- Node.js (v16.0.0 or higher)
+- Python 3.x
+- pip package manager
+- Docker and Docker Compose (for containerized setup)
+- Git
 
-Node.js (v16.0.0 or higher)
-Python 3.x
-pip package manager
-Docker and Docker Compose (for containerized setup)
-Git
+## Local Development Setup
 
-🔧 Local Development Setup
-1. Clone the Repository
-bashCopygit clone https://github.com/your-username/pdf-protector-converter.git
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/pdf-protector-converter.git
 cd pdf-protector-converter
-2. Flask Backend Setup (PDF Protection Service)
-bashCopy# Navigate to Flask backend directory
+```
+
+### 2. Flask Backend Setup (PDF Protection Service)
+```bash
+# Navigate to Flask backend directory
 cd pdf-protector
 
 # Create and activate virtual environment
@@ -76,9 +69,12 @@ pip install -r requirements.txt
 
 # Start Flask server
 python app.py
-The Flask server will run at http://localhost:5001
-3. Node.js Backend Setup (File Conversion Service)
-bashCopy# Navigate to Node.js backend directory
+```
+The Flask server will run at `http://localhost:5001`
+
+### 3. Node.js Backend Setup (File Conversion Service)
+```bash
+# Navigate to Node.js backend directory
 cd backend
 
 # Install dependencies
@@ -86,9 +82,12 @@ npm install
 
 # Start Node.js server
 npm start
-The Node.js server will run at http://localhost:5002
-4. React Frontend Setup
-bashCopy# Navigate to React client directory
+```
+The Node.js server will run at `http://localhost:5002`
+
+### 4. React Frontend Setup
+```bash
+# Navigate to React client directory
 cd ui-testing/client
 
 # Install dependencies
@@ -96,16 +95,21 @@ npm install
 
 # Start development server
 npm start
-The React application will be available at http://localhost:3000
-🐳 Docker Setup
-Using Docker Compose (Recommended)
+```
+The React application will be available at `http://localhost:3000`
 
-Make sure Docker and Docker Compose are installed
-Run all services:
+## Docker Setup
 
-bashCopydocker-compose up --build
-Manual Docker Setup
-bashCopy# Build images
+### Using Docker Compose (Recommended)
+1. Make sure Docker and Docker Compose are installed
+2. Run all services:
+```bash
+docker-compose up --build
+```
+
+### Manual Docker Setup
+```bash
+# Build images
 docker build -f Dockerfile-flask -t web-app-rp-flask-app ./pdf-protector
 docker build -f Dockerfile-node -t web-app-rp-node-backend ./backend
 docker build -f Dockerfile -t web-app-rp-react-client ./ui-testing/client
@@ -114,9 +118,13 @@ docker build -f Dockerfile -t web-app-rp-react-client ./ui-testing/client
 docker run -d -p 5001:5001 web-app-rp-flask-app
 docker run -d -p 5002:5002 web-app-rp-node-backend
 docker run -d -p 3000:3000 web-app-rp-react-client
-📡 API Endpoints
-PDF Protection Service (Flask)
-bashCopyPOST /upload
+```
+
+## API Endpoints
+
+### PDF Protection Service (Flask)
+```bash
+POST /upload
 Content-Type: multipart/form-data
 
 Parameters:
@@ -124,8 +132,11 @@ Parameters:
 - password: String (optional, default: "defaultPassword")
 
 Response: Protected PDF file
-File Conversion Service (Node.js)
-bashCopyPOST /convert
+```
+
+### File Conversion Service (Node.js)
+```bash
+POST /convert
 Content-Type: multipart/form-data
 
 Parameters:
@@ -133,8 +144,11 @@ Parameters:
 - targetFormat: String (Desired output format)
 
 Response: Converted file
-📁 Project Structure
-Copypdf-protector-converter/
+```
+
+## Project Structure
+```
+pdf-protector-converter/
 ├── pdf-protector/              # Flask backend
 │   ├── app.py                 # Main Flask application
 │   ├── requirements.txt       # Python dependencies
@@ -150,22 +164,34 @@ Copypdf-protector-converter/
 │       └── Dockerfile        # React Dockerfile
 ├── docker-compose.yml        # Docker Compose configuration
 └── README.md                 # Project documentation
-🔑 Environment Variables
-Create .env files in respective directories:
-Flask Backend (.env)
-CopyFLASK_ENV=development
+```
+
+## Environment Variables
+
+Create `.env` files in respective directories:
+
+### Flask Backend (.env)
+```
+FLASK_ENV=development
 PORT=5001
 SECRET_KEY=your_secret_key
-Node.js Backend (.env)
-CopyNODE_ENV=development
-PORT=5002
-React Frontend (.env)
-CopyREACT_APP_FLASK_API_URL=http://localhost:5001
-REACT_APP_NODE_API_URL=http://localhost:5002
-🤝 Contributing
+```
 
-Fork the repository
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
+### Node.js Backend (.env)
+```
+NODE_ENV=development
+PORT=5002
+```
+
+### React Frontend (.env)
+```
+REACT_APP_FLASK_API_URL=http://localhost:5001
+REACT_APP_NODE_API_URL=http://localhost:5002
+```
+
+## Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
