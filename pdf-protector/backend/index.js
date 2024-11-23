@@ -29,7 +29,7 @@ app.post('/upload', upload.single('pdfFile'), async (req, res) => {
     formData.append('password', password);
 
     // Send the file to the Python server (assumes the Python server is running on port 5001)
-    const response = await axios.post('http://localhost:5001/upload', formData, {
+    const response = await axios.post('https://web-app-rp-pdf-protector-python.onrender.com/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

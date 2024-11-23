@@ -55,7 +55,7 @@ const FileConverter = () => {
 
     try {
       // Call metadata endpoint
-      const response = await axios.post('http://localhost:5000/metadata', formData);
+      const response = await axios.post('https://web-app-rp-testing.onrender.com/metadata', formData);
       setFileMetadata(response.data);
     } catch (err) {
       console.error('Error fetching metadata:', err);
@@ -111,8 +111,8 @@ const FileConverter = () => {
     try {
       const endpoint =
         activeTab === "wordToPdf"
-          ? "http://localhost:5000/convert"
-          : "http://localhost:5001/upload";
+          ? "https://web-app-rp-testing.onrender.com/convert"
+          : "https://web-app-rp-pdf-protector-python.onrender.com/upload";
 
       const response = await axios.post(endpoint, formData, {
         responseType: "blob",
