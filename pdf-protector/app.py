@@ -6,7 +6,7 @@ from flask_cors import CORS  # Import CORS
 app = Flask(__name__)
 
 # Enable CORS for all routes
-CORS(app, origins="http://localhost:3000")  # Allow requests from React frontend
+CORS(app, origins="https://file-converter-new.netlify.app/")  # Allow requests from React frontend
 
 # Route to handle PDF protection
 @app.route('/upload', methods=['POST'])
