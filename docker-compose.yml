@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  flask-app:
+    build:
+      context: ./pdf-protector
+      dockerfile: Dockerfile-flask
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./pdf-protector/uploads:/app/uploads
+
+  node-backend:
+    build:
+      context: ./pdf-protector
+      dockerfile: Dockerfile-node
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./pdf-protector/backend/uploads:/app/uploads
+
+  testing-server:
+    build:
+      context: ./testing/server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./testing/server/uploads:/app/uploads
+
+  react-client:
+    build:
+      context: ./ui-testing/client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
