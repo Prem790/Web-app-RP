@@ -1,222 +1,171 @@
-# **PDF Protector & File Converter**
+PDF Protector & File Converter 🔒
+Show Image
+Show Image
+Show Image
+Show Image
+Show Image
+A powerful web application that combines PDF protection and file conversion capabilities. Built with a microservices architecture using Flask, Node.js, and React, this application provides a seamless experience for managing and converting documents.
+🚀 Features
 
-A **multi-functional web application** for managing PDFs and file conversions. This project allows users to securely encrypt PDF files with a password, convert files between formats, and interact with a modern, responsive React-based UI. Built using Flask, Node.js, React, and Docker, it is designed for ease of use and flexibility.
+PDF Password Protection
 
----
+Encrypt PDF files with custom passwords
+Secure document sharing
+Download protected PDFs instantly
 
-## **Features**
 
-- **Password Protection for PDFs**  
-  Encrypt PDF files with a password and download the protected version.
-  
-- **File Conversion**  
-  Convert files between different formats, such as DOCX to PDF.
+File Format Conversion
 
-- **Modern UI/UX**  
-  Built with React and styled with TailwindCSS, providing a clean, responsive interface.
+Convert between multiple file formats
+Support for DOCX to PDF conversion
+Maintain document formatting
 
-- **API Integration**  
-  Efficient backend API for file handling and processing.
 
-- **Docker Support**  
-  Deploy all services easily with Docker.
+Modern UI/UX
 
----
+Responsive design with TailwindCSS
+Intuitive user interface
+Real-time conversion progress
+Drag-and-drop file upload
 
-## **Technologies Used**
 
-- **Frontend:** React.js, TailwindCSS  
-- **Backend:** Flask (Python), Node.js (JavaScript)  
-- **DevOps:** Docker, Docker Compose  
-- **Utilities:** PyPDF2 for PDF handling, multer for file uploads.
 
----
+🛠️ Tech Stack
+Frontend
 
-## **How to Run the Project Locally**
+React.js 18.x
+TailwindCSS 3.x
+Axios for API calls
 
-### **Prerequisites**
+Backend
 
-Ensure the following are installed on your system:
-- **Node.js** (v16 or above)
-- **Python 3.x** and **pip**
-- **Docker** and **Docker Compose** (for Docker-based setup)
+Flask (Python 3.x)
+Node.js 16+
+PyPDF2 for PDF operations
+Multer for file handling
 
----
+DevOps
 
-### **Step-by-Step Local Setup**
+Docker & Docker Compose
+Multi-container architecture
+Nginx (optional for production)
 
-#### **1. Clone the Repository**
-```bash
-git clone <repository-url>
-cd <repository-folder>
-2. Set Up Flask Backend (PDF Protection)
-Navigate to the backend folder:
-bash
-Copy code
+📋 Prerequisites
+Before running the application, ensure you have the following installed:
+
+Node.js (v16.0.0 or higher)
+Python 3.x
+pip package manager
+Docker and Docker Compose (for containerized setup)
+Git
+
+🔧 Local Development Setup
+1. Clone the Repository
+bashCopygit clone https://github.com/your-username/pdf-protector-converter.git
+cd pdf-protector-converter
+2. Flask Backend Setup (PDF Protection Service)
+bashCopy# Navigate to Flask backend directory
 cd pdf-protector
-Create a virtual environment and activate it:
-bash
-Copy code
+
+# Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install required dependencies:
-bash
-Copy code
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
-Start the Flask server:
-bash
-Copy code
+
+# Start Flask server
 python app.py
-Flask server will run at http://127.0.0.1:5001.
-3. Set Up Node.js Backend (File Conversion)
-Navigate to the Node.js backend folder:
-bash
-Copy code
+The Flask server will run at http://localhost:5001
+3. Node.js Backend Setup (File Conversion Service)
+bashCopy# Navigate to Node.js backend directory
 cd backend
-Install dependencies:
-bash
-Copy code
+
+# Install dependencies
 npm install
-Start the Node.js server:
-bash
-Copy code
+
+# Start Node.js server
 npm start
-Node.js server will run at http://127.0.0.1:5002.
-4. Set Up React Frontend
-Navigate to the React client folder:
-bash
-Copy code
+The Node.js server will run at http://localhost:5002
+4. React Frontend Setup
+bashCopy# Navigate to React client directory
 cd ui-testing/client
-Install dependencies:
-bash
-Copy code
+
+# Install dependencies
 npm install
-Start the React development server:
-bash
-Copy code
+
+# Start development server
 npm start
-React app will be available at http://localhost:3000.
-Endpoints
-Flask Backend Endpoints
-1. Protect PDF
-URL: /upload
-Method: POST
-Description: Protects a PDF file with a password.
-Request:
-Form Data:
-pdfFile (file): The PDF file to encrypt.
-password (string): The desired password (optional; default: "defaultPassword").
-Response:
-The encrypted PDF file as a download.
-Example cURL Command:
-bash
-Copy code
-curl -X POST -F "pdfFile=@sample.pdf" -F "password=secure123" http://localhost:5001/upload -o protected_sample.pdf
-Node.js Backend Endpoints
-1. Convert File
-URL: /convert
-Method: POST
-Description: Converts a file from one format to another.
-Request:
-Form Data:
-inputFile (file): The file to convert.
-targetFormat (string): Desired output format.
-Response:
-The converted file as a download.
-Example cURL Command:
-bash
-Copy code
-curl -X POST -F "inputFile=@document.docx" -F "targetFormat=pdf" http://localhost:5002/convert -o document.pdf
-Running with Docker
-Step-by-Step Guide
-1. Build Docker Images
-bash
-Copy code
-docker build -f Dockerfile-flask -t pdf-protector-backend ./pdf-protector
-docker build -f Dockerfile-node -t file-converter-backend ./backend
-docker build -f Dockerfile -t react-frontend ./ui-testing/client
-2. Run Docker Containers
-bash
-Copy code
-docker run -d -p 5001:5001 pdf-protector-backend
-docker run -d -p 5002:5002 file-converter-backend
-docker run -d -p 3000:3000 react-frontend
-3. Access the Application
-Flask API: http://localhost:5001
-Node.js API: http://localhost:5002
-React Client: http://localhost:3000
-Using Docker Compose
-Make sure your docker-compose.yml is set up:
-yaml
-Copy code
-version: "3.8"
-services:
-  flask-app:
-    build:
-      context: ./pdf-protector
-      dockerfile: Dockerfile-flask
-    ports:
-      - "5001:5001"
-  node-app:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile-node
-    ports:
-      - "5002:5002"
-  react-client:
-    build:
-      context: ./ui-testing/client
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-Start all services:
-bash
-Copy code
-docker-compose up --build
-Using the Bash Script
-Save the following as run-services.sh:
+The React application will be available at http://localhost:3000
+🐳 Docker Setup
+Using Docker Compose (Recommended)
 
-bash
-Copy code
-#!/bin/bash
+Make sure Docker and Docker Compose are installed
+Run all services:
 
-echo "Starting Flask Backend..."
-docker run -d -p 5001:5001 pdf-protector-backend
+bashCopydocker-compose up --build
+Manual Docker Setup
+bashCopy# Build images
+docker build -f Dockerfile-flask -t web-app-rp-flask-app ./pdf-protector
+docker build -f Dockerfile-node -t web-app-rp-node-backend ./backend
+docker build -f Dockerfile -t web-app-rp-react-client ./ui-testing/client
 
-echo "Starting Node.js Backend..."
-docker run -d -p 5002:5002 file-converter-backend
+# Run containers
+docker run -d -p 5001:5001 web-app-rp-flask-app
+docker run -d -p 5002:5002 web-app-rp-node-backend
+docker run -d -p 3000:3000 web-app-rp-react-client
+📡 API Endpoints
+PDF Protection Service (Flask)
+bashCopyPOST /upload
+Content-Type: multipart/form-data
 
-echo "Starting React Frontend..."
-docker run -d -p 3000:3000 react-frontend
-Make it executable:
+Parameters:
+- pdfFile: File (PDF to protect)
+- password: String (optional, default: "defaultPassword")
 
-bash
-Copy code
-chmod +x run-services.sh
-Run the script:
+Response: Protected PDF file
+File Conversion Service (Node.js)
+bashCopyPOST /convert
+Content-Type: multipart/form-data
 
-bash
-Copy code
-./run-services.sh
-Folder Structure
-php
-Copy code
-project/
-├── pdf-protector/          # Flask backend
-│   ├── app.py
-│   ├── requirements.txt
-├── backend/                # Node.js backend
-│   ├── index.js
-│   ├── package.json
+Parameters:
+- inputFile: File (File to convert)
+- targetFormat: String (Desired output format)
+
+Response: Converted file
+📁 Project Structure
+Copypdf-protector-converter/
+├── pdf-protector/              # Flask backend
+│   ├── app.py                 # Main Flask application
+│   ├── requirements.txt       # Python dependencies
+│   └── Dockerfile-flask       # Flask Dockerfile
+├── backend/                   # Node.js backend
+│   ├── index.js              # Main Node.js application
+│   ├── package.json          # Node.js dependencies
+│   └── Dockerfile-node       # Node.js Dockerfile
 ├── ui-testing/
-│   ├── client/             # React frontend
-│       ├── src/
-│       ├── public/
-├── docker-compose.yml      # Docker Compose configuration
-├── run-services.sh         # Bash script to run services
-Contributing
-Fork the repository.
-Create a new branch: git checkout -b feature-name.
-Commit changes: git commit -m "Add feature".
-Push to the branch: git push origin feature-name.
-Submit a pull request.
+│   └── client/               # React frontend
+│       ├── src/              # React source code
+│       ├── public/           # Static files
+│       └── Dockerfile        # React Dockerfile
+├── docker-compose.yml        # Docker Compose configuration
+└── README.md                 # Project documentation
+🔑 Environment Variables
+Create .env files in respective directories:
+Flask Backend (.env)
+CopyFLASK_ENV=development
+PORT=5001
+SECRET_KEY=your_secret_key
+Node.js Backend (.env)
+CopyNODE_ENV=development
+PORT=5002
+React Frontend (.env)
+CopyREACT_APP_FLASK_API_URL=http://localhost:5001
+REACT_APP_NODE_API_URL=http://localhost:5002
+🤝 Contributing
+
+Fork the repository
+Create your feature branch (git checkout -b feature/AmazingFeature)
+Commit your changes (git commit -m 'Add some AmazingFeature')
+Push to the branch (git push origin feature/AmazingFeature)
+Open a Pull Request
