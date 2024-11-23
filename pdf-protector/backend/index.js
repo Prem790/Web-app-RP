@@ -7,7 +7,7 @@ const axios = require('axios');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests only from this origin
+  origin: 'https://file-converter-new.netlify.app/', // Allow requests only from this origin
   methods: ['GET', 'POST'], // Allow specific HTTP methods
   allowedHeaders: ['Content-Type'], // Allow specific headers
 }));
