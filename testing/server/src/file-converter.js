@@ -1,9 +1,7 @@
 const path = require("path");
 const fs = require("fs");
-const libre = require("libreoffice-convert");
-const { promisify } = require("util");
-
-const convertAsync = promisify(libre.convert);
+const mammoth = require("mammoth");
+const { PDFDocument, rgb } = require("pdf-lib"); // For creating PDFs
 
 const convertFile = async (req, res) => {
   try {
@@ -12,24 +10,45 @@ const convertFile = async (req, res) => {
     }
 
     const inputPath = req.file.path;
-    const originalName = path.parse(req.file.originalname).name; // Extract the original name without extension
-    const outputPath = path.resolve("uploads", `${originalName}.pdf`); // Use absolute path for the output file
+    const originalName = path.parse(req.file.originalname).name;
+    const outputPath = path.resolve("uploads", ${originalName}.pdf);
 
-    const docxBuf = await fs.promises.readFile(inputPath);
+    // Read the Word file and extract content
+    const fileBuffer = await fs.promises.readFile(inputPath);
+    const { value: extractedText } = await mammoth.extractRawText({ buffer: fileBuffer });
 
-    // Convert to PDF
-    const pdfBuf = await convertAsync(docxBuf, ".pdf", undefined);
+    // Create a new PDF document
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage();
+    const { width, height } = page.getSize();
 
-    // Save the PDF
-    await fs.promises.writeFile(outputPath, pdfBuf);
+    const fontSize = 12;
+    const margin = 40;
 
-    // Send the PDF file with the correct name
+    // Split the text into lines to fit the PDF width
+    const lines = extractedText.split("\n");
+    let yOffset = height - margin;
+
+    for (const line of lines) {
+      if (yOffset < margin) {
+        page.drawText("...", { x: margin, y: yOffset, size: fontSize });
+        break;
+      }
+      page.drawText(line, { x: margin, y: yOffset, size: fontSize, color: rgb(0, 0, 0) });
+      yOffset -= fontSize + 4; // Adjust line spacing
+    }
+
+    const pdfBytes = await pdfDoc.save();
+
+    // Save the PDF to disk
+    await fs.promises.writeFile(outputPath, pdfBytes);
+
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename="${originalName}.pdf"`
+      attachment; filename="${originalName}.pdf"
     );
-    res.sendFile(outputPath, (err) => {
-      // Cleanup files after sending
+    res.sendFile(outputPath, () => {
+      // Cleanup temporary files
       fs.unlink(inputPath, () => {});
       fs.unlink(outputPath, () => {});
     });
@@ -40,8 +59,5 @@ const convertFile = async (req, res) => {
 };
 
 const { getMetadata } = require("./metadata");
-
-
-
 
 module.exports = { convertFile };
