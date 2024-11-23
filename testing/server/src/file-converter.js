@@ -11,7 +11,7 @@ const convertFile = async (req, res) => {
 
     const inputPath = req.file.path;
     const originalName = path.parse(req.file.originalname).name;
-    const outputPath = path.resolve("uploads", ${originalName}.pdf);
+    const outputPath = path.resolve("uploads", `${originalName}.pdf`);  // Fixed string interpolation
 
     // Read the Word file and extract content
     const fileBuffer = await fs.promises.readFile(inputPath);
@@ -45,12 +45,16 @@ const convertFile = async (req, res) => {
 
     res.setHeader(
       "Content-Disposition",
-      attachment; filename="${originalName}.pdf"
+      `attachment; filename="${originalName}.pdf"`  // Fixed string interpolation
     );
     res.sendFile(outputPath, () => {
       // Cleanup temporary files
-      fs.unlink(inputPath, () => {});
-      fs.unlink(outputPath, () => {});
+      fs.unlink(inputPath, (err) => {
+        if (err) console.error("Error deleting input file:", err);
+      });
+      fs.unlink(outputPath, (err) => {
+        if (err) console.error("Error deleting output file:", err);
+      });
     });
   } catch (error) {
     console.error("Conversion error:", error);
